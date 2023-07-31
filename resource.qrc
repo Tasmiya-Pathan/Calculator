@@ -1,0 +1,30 @@
+<RCC>
+  <qresource prefix="icons">
+    <file>icon/xraisetoy.ico</file>
+    <file>icon/10raisetox.ico</file>
+    <file>icon/Calculator icon font - Free technological icon fonts.ico</file>
+    <file>icon/Calendar days icon font - Free calendar days icon fonts.ico</file>
+    <file>icon/Clock-three icon font - Free clock-three icon fonts.ico</file>
+    <file>icon/Coins icon font - Free argent icon fonts.ico</file>
+    <file>icon/Flask icon font - Free lab equipment icon fonts.ico</file>
+    <file>icon/Menu-burger icon font - Free menu-burger icon fonts.ico</file>
+    <file>icon/Ruler-vertical icon font - Free ruler-vertical icon fonts.ico</file>
+    <file>icon/Scale icon font - Free weighing machine icon fonts.ico</file>
+    <file>icon/Tachometer-alt-slow icon font - Free tachometer-alt-slow icon fonts.ico</file>
+    <file>icon/Division_sign.ico</file>
+    <file>icon/x_square.ico</file>
+    <file>icon/X_squareroot.ico</file>
+    <file>icon/Temperature-high icon font - Free temperature-high icon fonts.ico</file>
+    <file>icon/Arrow-circle-left icon font - Free arrow-circle-left icon fonts.ico</file>
+    <file>icon/Calculator icon font - Free technological icon fonts.ico</file>
+    <file>icon/Calendar days icon font - Free calendar days icon fonts.ico</file>
+    <file>icon/Clock-three icon font - Free clock-three icon fonts.ico</file>
+    <file>icon/Coins icon font - Free argent icon fonts.ico</file>
+    <file>icon/Flask icon font - Free lab equipment icon fonts.ico</file>
+    <file>icon/Menu-burger icon font - Free menu-burger icon fonts.ico</file>
+    <file>icon/Ruler-vertical icon font - Free ruler-vertical icon fonts.ico</file>
+    <file>icon/Scale icon font - Free weighing machine icon fonts.ico</file>
+    <file>icon/Tachometer-alt-slow icon font - Free tachometer-alt-slow icon fonts.ico</file>
+    <file>icon/Temperature-high icon font - Free temperature-high icon fonts.ico</file>
+  </qresource>
+</RCC>
