@@ -1,6 +1,7 @@
 import sys
 
 from PyQt5 import QtWidgets
+import math
 
 from calci_ui import Ui_MainWindow
 class MainWindow(QtWidgets.QMainWindow):
@@ -8,6 +9,7 @@ class MainWindow(QtWidgets.QMainWindow):
         super().__init__()
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        self.ui.menu_widget.setVisible(False)
 
         ### Page Connect
         self.ui.std_Pbtn.clicked.connect(lambda: self.ui.stackedWidget.setCurrentIndex(0))
@@ -21,18 +23,45 @@ class MainWindow(QtWidgets.QMainWindow):
         self.ui.Weight_Pbtn.clicked.connect(lambda checked, show_frame=5: self.show_conv_Page(show_frame))
 
         ### Standard Page Functions
-        self.ui.zero_pbtn.clicked.connect(lambda checked, show_digit=0: self.std_show_digit_fun(show_digit))
-        self.ui.one_pbtn.clicked.connect(lambda checked, show_digit=1: self.std_show_digit_fun(show_digit))
-        self.ui.two_pbtn.clicked.connect(lambda checked, show_digit=2: self.std_show_digit_fun(show_digit))
-        self.ui.three_pbtn.clicked.connect(lambda checked, show_digit=3: self.std_show_digit_fun(show_digit))
-        self.ui.four_pbtn.clicked.connect(lambda checked, show_digit=4: self.std_show_digit_fun(show_digit))
-        self.ui.five_pbtn.clicked.connect(lambda checked, show_digit=5: self.std_show_digit_fun(show_digit))
-        self.ui.six_pbtn.clicked.connect(lambda checked, show_digit=6: self.std_show_digit_fun(show_digit))
-        self.ui.seven_pbtn.clicked.connect(lambda checked, show_digit=7: self.std_show_digit_fun(show_digit))
-        self.ui.eightpbtn.clicked.connect(lambda checked, show_digit=8: self.std_show_digit_fun(show_digit))
-        self.ui.nine_pbtn.clicked.connect(lambda checked, show_digit=9: self.std_show_digit_fun(show_digit))
+        self.ui.zero_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '0'))
+        self.ui.one_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '1'))
+        self.ui.two_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '2'))
+        self.ui.three_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '3'))
+        self.ui.four_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '4'))
+        self.ui.five_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '5'))
+        self.ui.six_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '6'))
+        self.ui.seven_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '7'))
+        self.ui.eightpbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '8'))
+        self.ui.nine_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '9'))
+
+        self.ui.dot_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '.'))
+        self.ui.c_pbtn.clicked.connect(lambda : self.ui.std_out_label.setText(''))
+        self.ui.back_pbtn.clicked.connect(self.back_label_fun)
+        self.ui.signch_pbtn.clicked.connect(self.change_sign)
+
+        self.ui.add_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '+'))
+        self.ui.sub_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '-'))
+        self.ui.mul_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '*'))
+        self.ui.divi_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '/'))
+        self.ui.mod_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '%'))
+        self.ui.uponX_pbtn.clicked.connect(self.uponx_function)
+        self.ui.x_square_pbtn.clicked.connect(self.x_square_fun)
+        self.ui.x_sqrt_pbtn.clicked.connect(self.x_sqrt_fun)
+        self.ui.ce_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '2.718'))
+        self.ui.equal_pbtn.clicked.connect(self.evaluate_expr)
+
 
         ### Scientific Page Function
+        self.ui.zero_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '0'))
+        self.ui.one_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '1'))
+        self.ui.two_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '2'))
+        self.ui.three_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '3'))
+        self.ui.four_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '4'))
+        self.ui.five_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '5'))
+        self.ui.six_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '6'))
+        self.ui.seven_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '7'))
+        self.ui.eightpbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '8'))
+        self.ui.nine_pbtn.clicked.connect(lambda: self.ui.std_out_label.setText(self.ui.std_out_label.text() + '9'))
 
         ### Date Calculation Page Function
         self.ui.find_date_diff_pbtn.clicked.connect(self.date_difference)
@@ -40,12 +69,63 @@ class MainWindow(QtWidgets.QMainWindow):
         ### Convertor Page
         self.ui.convert_pbtn.clicked.connect(self.call_convert_fun)
 
-    def std_show_digit_fun(self, dig):
+    def evaluate_expr(self):
         try:
-            if 0 <= dig <= 9:
-                self.ui.std_out_label.setText(self.ui.std_out_label.text() + str(dig))
+            expression = self.ui.std_out_label.text()
+            index = expression.find("√")
+            if index >=0:
+                modified_string = expression[:index] + "math.sqrt" + expression[index + 1:]
+            else:
+                modified_string =expression
+            result = eval(modified_string)
+            self.ui.std_out_label.setText(str(result))
         except Exception as e:
             print(f"An error occurred: {e}")
+            return
+
+
+    def uponx_function(self):
+        expression = self.ui.std_out_label.text()
+        if not expression:
+            return
+        last_number = expression.split("+")[-1].split("-")[-1].split("*")[-1].split("/")[-1].split("%")[-1]
+        expression = expression[:-len(last_number)] + "(1/(" +last_number +"))"
+        self.ui.std_out_label.setText(expression)
+
+    def x_square_fun(self):
+        expression = self.ui.std_out_label.text()
+        if not expression:
+            return
+        last_number = expression.split("+")[-1].split("-")[-1].split("*")[-1].split("/")[-1].split("%")[-1]
+        expression = expression[:-len(last_number)] + last_number + "**2"
+        self.ui.std_out_label.setText(expression)
+
+    def x_sqrt_fun(self):
+        expression = self.ui.std_out_label.text()
+        if not expression:
+            return
+        last_number = expression.split("+")[-1].split("-")[-1].split("*")[-1].split("/")[-1].split("%")[-1]
+        expression = expression[:-len(last_number)] +  "√(" + last_number + ")"
+        self.ui.std_out_label.setText(expression)
+
+    def change_sign(self):
+        try:
+            expression = self.ui.std_out_label.text()
+            if not expression:
+                return
+            last_number = expression.split("+")[-1].split("-")[-1].split("*")[-1].split("/")[-1]
+            if last_number and last_number[0] == "-":
+                expression = expression[:-len(last_number)] + last_number[1:]
+            else:
+                expression = expression[:-len(last_number)] + "-" + last_number
+            self.ui.std_out_label.setText(expression)
+        except Exception as e:
+            print(f"An error occurred: {e}")
+            return
+    def back_label_fun(self):
+        current_text = self.ui.std_out_label.text()
+        new_text = current_text[:-1]
+        self.ui.std_out_label.setText(new_text)
 
     def show_conv_Page(self, state):
         try:
